@@ -5,14 +5,14 @@ const password2 = document.getElementById('password2');
 
 const showError = (input, message) => {
   const formControlDiv = input.parentElement;
-  formControlDiv.classList.add('error');
+  formControlDiv.className = 'form-control error';
   const small = formControlDiv.querySelector('small');
   small.textContent = message;
 };
 
 const showSuccess = (input) => {
   const formControlDiv = input.parentElement;
-  formControlDiv.classList.add('success');
+  formControlDiv.className = 'form-control success';
 };
 
 const displayName = (input) => input.id[0].toUpperCase() + input.id.slice(1);
@@ -38,12 +38,20 @@ const checkLength = (input, min, max) => {
   else showSuccess(input);
 };
 
+const checkEmail = (input) => {
+  const re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  if (re.test(input.value.trim())) showSuccess(input);
+  else showError(input, `${displayName(input)} not not valid`);
+};
+
 const submitForm = (e) => {
   e.preventDefault();
 
   checkIfValid([username, email, password, password2]);
   checkLength(username, 5, 15);
   checkLength(password, 6, 25);
+  checkEmail(email);
 };
 
 document.getElementById('form').addEventListener('submit', submitForm);
