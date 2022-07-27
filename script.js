@@ -45,6 +45,12 @@ const checkEmail = (input) => {
   else showError(input, `${displayName(input)} not not valid`);
 };
 
+const checkPasswordMatch = (password1, password2) => {
+  if (password1.value !== password2.value)
+    showError(password2, `Passwords don't match`);
+  else showSuccess(password1, password2);
+};
+
 const submitForm = (e) => {
   e.preventDefault();
 
@@ -52,6 +58,7 @@ const submitForm = (e) => {
   checkLength(username, 5, 15);
   checkLength(password, 6, 25);
   checkEmail(email);
+  checkPasswordMatch(password, password2);
 };
 
 document.getElementById('form').addEventListener('submit', submitForm);
