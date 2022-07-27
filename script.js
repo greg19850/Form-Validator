@@ -24,7 +24,19 @@ const checkIfValid = (inputArr) => {
     else showSuccess(input);
   });
 };
-const checkLength = () => {};
+const checkLength = (input, min, max) => {
+  if (input.value.length < min)
+    showError(
+      input,
+      `${displayName(input)} must be at least ${min} characters`
+    );
+  else if (input.value.length > max)
+    showError(
+      input,
+      `${displayName(input)} must be less than ${min} characters`
+    );
+  else showSuccess(input);
+};
 
 const submitForm = (e) => {
   e.preventDefault();
